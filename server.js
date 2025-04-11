@@ -1,6 +1,8 @@
 const express = require("express");
 require("dotenv").config();
+const bodyParser = require("body-parser");
 const pageRoute = require("./routes/pageRoute");
+const courseRoute = require("./routes/courseRoute");
 const connectDB = require("./db/connect");
 const app = express();
 
@@ -9,9 +11,12 @@ app.set("view engine", "ejs");
 
 //Middlewares
 app.use(express.static("public"));
+app.use(bodyParser.json()); // for parsing application/json
+app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
 //Routes
 app.use("/", pageRoute);
+app.use("/courses", courseRoute);
 
 const port = process.env.PORT || 3000;
 
