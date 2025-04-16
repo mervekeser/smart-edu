@@ -28,7 +28,8 @@ exports.loginUser = async (req, res) => {
     if (!isPasswordCorrect) {
       return res.status(400).send("Invalid Password");
     }
-    res.status(200).send("You are logged in!");
+    req.session.userID = user._id;
+    res.status(200).redirect("/");
   } catch (err) {
     console.log(err);
     res.status(400).json({ status: "failed", err });
